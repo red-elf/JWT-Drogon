@@ -1,0 +1,18 @@
+[submodule "Toolkit"]
+	path = Toolkit
+	url = git@github.com:red-elf/Software-Toolkit.git
+[submodule "Installable"]
+	path = Installable
+	url = git@github.com:red-elf/Installable.git
+[submodule "Dependable"]
+	path = Dependable
+	url = git@github.com:red-elf/Dependable.git
+[submodule "Versionable"]
+	path = Versionable
+	url = git@github.com:red-elf/Versionable.git
+[submodule "Upstreamable"]
+	path = Upstreamable
+	url = git@github.com:red-elf/Upstreamable.git
+[submodule "Library"]
+	path = Library
+	url = https://github.com/roq3/JWT-drogon
