@@ -1,4 +1,3 @@
 #!/bin/bash
 
-echo "To be implemented!"
-exit 1
+echo "Drogon JWT plugin is ready for use"
