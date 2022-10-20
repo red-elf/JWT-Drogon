@@ -35,8 +35,3 @@ if ! test -e "$HERE/Library/cpp-jwt"; then
     exit 1
   fi
 fi
-
-sh "$VERSIONABLE_BUILD_SCRIPT" Library ..
-
-# TODO:
-# &&  sh "$VERSIONABLE_INSTALL_SCRIPT" Library
