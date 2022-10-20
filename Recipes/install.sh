@@ -35,3 +35,9 @@ if ! test -e "$HERE/Library/cpp-jwt"; then
     exit 1
   fi
 fi
+
+cd "$HERE" && cd "Library" && \
+  rm -rf ./Build && \
+  mkdir Build && \
+  cd Build && \
+  cmake -GNinja ..
