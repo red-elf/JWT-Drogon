@@ -18,23 +18,23 @@ fi
 
 cd "$HERE" && echo "Preparing the dependency linking"
 
-if ! test -e "$HERE/Library/json";
+if ! test -e "$HERE/Library/json"; then
 
   if ! ln -s "$HERE/_Dependencies/Cache/JSON/Library" "$HERE/Library/json"; then
 
     echo "ERROR: Could not link the 'json' dependency"
     exit 1
   fi
-then
+fi
 
-if ! test -e "$HERE/Library/cpp-jwt";
+if ! test -e "$HERE/Library/cpp-jwt"; then
 
   if ! ln -s "$HERE/_Dependencies/Cache/CPP-JWT/Library" "$HERE/Library/cpp-jwt"; then
 
     echo "ERROR: Could not link the 'cpp-jwt' dependency"
     exit 1
   fi
-then
+fi
 
 sh "$VERSIONABLE_BUILD_SCRIPT" Library ..
 
