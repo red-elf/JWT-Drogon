@@ -1,5 +1,8 @@
 #!/bin/bash
 
+echo "DEBUG ON :: EXITING"
+exit 0
+
 HERE="$(pwd)"
 VERSIONABLE_BUILD_SCRIPT="$HERE/Versionable/versionable_build.sh"
 VERSIONABLE_INSTALL_SCRIPT="$HERE/Versionable/versionable_install.sh"
