@@ -36,6 +36,8 @@ if ! test -e "$HERE/Library/cpp-jwt"; then
   fi
 fi
 
+# FIXME: Verify symbolic links
+
 cd "$HERE" && cd "Library" && \
   rm -rf ./Build && \
   mkdir Build && \
