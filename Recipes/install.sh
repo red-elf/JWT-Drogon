@@ -27,6 +27,7 @@ if ! test -e "$HERE/Library/json"; then
   fi
 fi
 
+# FIXME: Verify symbolic links if they already exist as well
 if ! test -e "$HERE/Library/cpp-jwt"; then
 
   if ! ln -s "$HERE/_Dependencies/Cache/CPP-JWT/Library" "$HERE/Library/cpp-jwt"; then
