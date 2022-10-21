@@ -1,5 +1,6 @@
 #!/bin/bash
 
+# FIXME:
 echo "DEBUG ON :: EXITING"
 exit 0
 
