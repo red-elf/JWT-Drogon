@@ -4,6 +4,17 @@ HERE="$(pwd)"
 VERSIONABLE_BUILD_SCRIPT="$HERE/Versionable/versionable_build.sh"
 VERSIONABLE_INSTALL_SCRIPT="$HERE/Versionable/versionable_install.sh"
 
+if [ -z "$DEPENDABLE_DEPENDENCIES_HOME" ]; then
+
+  DEPENDABLE_DEPENDENCIES_HOME="$HERE"
+fi
+
+echo "The dependencies home directory: '$DEPENDABLE_DEPENDENCIES_HOME'"
+
+DEPENDENCIES_WORKING_DIRECTORY="$DEPENDABLE_DEPENDENCIES_HOME/_Dependencies"
+
+echo "The dependencies working directory: '$DEPENDENCIES_WORKING_DIRECTORY'"
+
 if ! test -e "$VERSIONABLE_BUILD_SCRIPT"; then
 
   echo "ERROR: The versionable build script not found at expected location: '$VERSIONABLE_BUILD_SCRIPT'"
@@ -18,26 +29,75 @@ fi
 
 cd "$HERE" && echo "Preparing the dependency linking"
 
-if ! test -e "$HERE/Library/json"; then
+LINK="$HERE/Library/json"
 
-  if ! ln -s "$HERE/_Dependencies/Cache/JSON/Library" "$HERE/Library/json"; then
+if test -e "$LINK"; then
+
+  if [ -L "$LINK" ] && [ -e "$LINK" ]; then
+
+    echo "Link is ok: $LINK"
+
+  else
+
+    echo "ERROR: Link is broken: $LINK"
+    exit 1
+  fi
+
+else
+
+  if ! ln -s "$DEPENDENCIES_WORKING_DIRECTORY/Cache/JSON/Library" "$HERE/Library/json"; then
 
     echo "ERROR: Could not link the 'json' dependency"
     exit 1
   fi
 fi
 
-# FIXME: Verify symbolic links if they already exist as well
-if ! test -e "$HERE/Library/cpp-jwt"; then
+LINK="$HERE/Library/cpp-jwt"
 
-  if ! ln -s "$HERE/_Dependencies/Cache/CPP-JWT/Library" "$HERE/Library/cpp-jwt"; then
+if test -e "$LINK"; then
+
+  if [ -L "$LINK" ] && [ -e "$LINK" ]; then
+
+    echo "Link is ok: $LINK"
+
+  else
+
+    echo "ERROR: Link is broken: $LINK"
+    exit 1
+  fi
+
+else
+
+  if ! ln -s "$DEPENDENCIES_WORKING_DIRECTORY/Cache/CPP-JWT/Library" "$HERE/Library/cpp-jwt"; then
 
     echo "ERROR: Could not link the 'cpp-jwt' dependency"
     exit 1
   fi
 fi
 
-# FIXME: Verify symbolic links
+LINK="$HERE/Library/json"
+
+if [ -L "$LINK" ] && [ -e "$LINK" ]; then
+
+  echo "Link is ok: $LINK"
+
+else
+
+  echo "ERROR: Link is broken: $LINK"
+  exit 1
+fi
+
+LINK="$HERE/Library/cpp-jwt"
+
+if [ -L "$LINK" ] && [ -e "$LINK" ]; then
+
+  echo "Link is ok: $LINK"
+
+else
+
+  echo "ERROR: Link is broken: $LINK"
+  exit 1
+fi
 
 cd "$HERE" && cd "Library" && \
   rm -rf ./Build && \
