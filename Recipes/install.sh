@@ -99,6 +99,8 @@ else
   exit 1
 fi
 
+# TODO: Move the redundant code into the functions
+
 cd "$HERE" && cd "Library" && \
   rm -rf ./Build && \
   mkdir Build && \
