@@ -29,77 +29,49 @@ fi
 
 cd "$HERE" && echo "Preparing the dependency linking"
 
-LINK="$HERE/Library/json"
+LINK_LIB_JSON="$HERE/Library/json"
+LINK_LIB_CPP_JWT="$HERE/Library/cpp-jwt"
 
-if test -e "$LINK"; then
+function DO_LINK {
 
-  if [ -L "$LINK" ] && [ -e "$LINK" ]; then
+  LINK="$1"
+  DIR_IN="$2"
+  DIR_OUT="$3"
 
-    echo "Link is ok: $LINK"
+  if test -e "$LINK"; then
 
-  else
+    if [ -L "$LINK" ] && [ -e "$LINK" ]; then
 
-    echo "ERROR: Link is broken: $LINK"
-    exit 1
-  fi
+      echo "Link is ok (1): $LINK"
 
-else
+    else
 
-  if ! ln -s "$DEPENDENCIES_WORKING_DIRECTORY/Cache/JSON/Library" "$HERE/Library/json"; then
-
-    echo "ERROR: Could not link the 'json' dependency"
-    exit 1
-  fi
-fi
-
-LINK="$HERE/Library/cpp-jwt"
-
-if test -e "$LINK"; then
-
-  if [ -L "$LINK" ] && [ -e "$LINK" ]; then
-
-    echo "Link is ok: $LINK"
+      echo "ERROR: Link is broken (1): $LINK"
+      exit 1
+    fi
 
   else
 
-    echo "ERROR: Link is broken: $LINK"
-    exit 1
+    if ! ln -s "$DEPENDENCIES_WORKING_DIRECTORY/Cache/$DIR_IN/Library" "$HERE/Library/$DIR_OUT"; then
+
+      echo "ERROR: Could not link the 'json' dependency"
+      exit 1
+    fi
+
+    if [ -L "$LINK" ] && [ -e "$LINK" ]; then
+
+      echo "Link is ok (2): $LINK"
+
+    else
+
+      echo "ERROR: Link is broken (2): $LINK"
+      exit 1
+    fi
   fi
+}
 
-else
-
-  if ! ln -s "$DEPENDENCIES_WORKING_DIRECTORY/Cache/CPP-JWT/Library" "$HERE/Library/cpp-jwt"; then
-
-    echo "ERROR: Could not link the 'cpp-jwt' dependency"
-    exit 1
-  fi
-fi
-
-LINK="$HERE/Library/json"
-
-if [ -L "$LINK" ] && [ -e "$LINK" ]; then
-
-  echo "Link is ok: $LINK"
-
-else
-
-  echo "ERROR: Link is broken: $LINK"
-  exit 1
-fi
-
-LINK="$HERE/Library/cpp-jwt"
-
-if [ -L "$LINK" ] && [ -e "$LINK" ]; then
-
-  echo "Link is ok: $LINK"
-
-else
-
-  echo "ERROR: Link is broken: $LINK"
-  exit 1
-fi
-
-# TODO: Move the redundant code into the functions
+DO_LINK "$LINK_LIB_JSON" "JSON" "json"
+DO_LINK "$LINK_LIB_CPP_JWT" "CPP-JWT" "cpp-jwt"
 
 cd "$HERE" && cd "Library" && \
   rm -rf ./Build && \
